@@ -1,0 +1,34 @@
+﻿/*Query 1:- query used for first insight*/
+#1- What is the average number of invoices by BillingCounry?
+SELECT BillingCountry, round(AVG(Invoiceid),0) as NettInvoices
+From Invoice
+JOIN Customer ON Invoice.CustomerId = Customer.CustomerId
+GROUP BY BillingCountry
+ORDER BY NettInvoices DESC Limit 10;
+
+Query 2 - query used for second insight */==
+top ten genres
+select Genre.Name as Genre, sum(InvoiceLine.UnitPrice) as Revenue
+FROM Genre
+JOIN Track ON Track.GenreId = Genre.GenreId
+JOIN InvoiceLine ON InvoiceLine.TrackId = Track.TrackId
+GROUP BY Genre.Name
+ORDER BY Revenue desc limit 10;
+
+3*/ number of invoice in each country
+SELECT Customer.Country, COUNT(Invoice.InvoiceId) AS NumberOfInvoice
+FROM Invoice
+JOIN Customer ON Invoice.CustomerID = Customer.CustomerID
+GROUP BY Country
+ORDER BY NumberOfInvoice DESC;
+
+query 4
+top 10 rock singers
+SELECT  Artist.ArtistId,  Artist.Name,  COUNT(Artist.ArtistId) AS Songs
+FROM Artist
+JOIN Album  ON Artist.ArtistId = Album.ArtistId
+JOIN Track  ON Album.AlbumId = Track.AlbumId
+JOIN Genre  ON Track.GenreId = Genre.GenreId
+WHERE Genre.Name = 'Rock'
+GROUP BY Artist.Name, artist.artistid
+ORDER BY Songs DESC LIMIT 10
